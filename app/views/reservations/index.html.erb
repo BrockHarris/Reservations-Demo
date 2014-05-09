@@ -1,0 +1,19 @@
+<h3>Create a Reservation</h3>
+
+<% if @reservation.errors.full_messages.any? %>
+	<% @reservation.errors.full_messages.each do |error_message| %>
+		<%= error_message if @reservation.errors.full_messages.first == error_message %> <br />
+	<% end %>
+<% end %>
+
+<%= form_for @reservation do |f| %>
+  <%= f.text_field :name, :placeholder => "Name" %><br/>
+  <%= datepicker_input(:reservation, :date, :minDate => 0, :dateFormat => "yy-mm-dd", :placeholder => "Select Date") %>
+  <%= f.select(:time, [['5:00 PM', '5'], ['6:00 PM', '6'], ['7:00 PM', '7'], ['8:00 PM', '8']], {}) %><br/>
+  <%= f.label "Guests" %>
+  <%= f.select(:guests, [[1, 2], [2,2], [3,4], [4,4]]) %><br/>
+  <%= f.submit 'Submit' %>
+<% end %>
+
+<h3>Reservations Saved</h3>
+<%= render @reservations %>
